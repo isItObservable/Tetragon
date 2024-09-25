@@ -1,0 +1,20 @@
+apiVersion: cilium.io/v1alpha1
+kind: TracingPolicy
+metadata:
+  name: "tracepoint-restransmit"
+spec:
+  tracepoints:
+    - subsystem: "tcp"
+      event: "tcp_retransmit_skb"
+      args:
+        - index: 4
+          type: "skb"
+        - index: 5
+          type: "sock"
+      selectors:
+        - matchArgs:
+            - index: 5
+              operator: "NotDAddr"
+              values:
+                - "127.0.0.1"
+                - "0.0.0.0"
