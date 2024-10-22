@@ -91,9 +91,7 @@ istioctl install -f istio/istioOperator.yaml --skip-confirmation
 
 helm repo add cilium https://helm.cilium.io
 helm repo update
-helm install tetragon cilium/tetragon -n tetragon --create-namespace \
-   --set tetragon.enableProcessCred=true \
-   --set tetragon.fieldFilters='{"fields":"process.binary,process.arguments,process.cwd,process.pod.name,process.pod.container.name,process.pod.namespace,process.flags,process.tid,process.pod.workload_kind,parent.binary,parent.arguments,args,status,signal,message,policy_name,function_name,event,file.path"}'
+helm install tetragon cilium/tetragon -n tetragon --create-namespace -f tetragon/values.yaml
 
 #### Deploy the Dynatrace Operator
 kubectl create namespace dynatrace
